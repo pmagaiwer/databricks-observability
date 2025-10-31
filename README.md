@@ -266,5 +266,6 @@ Job “etl_customer_data” failed @ 2025-10-31T08:45
 ---
 
 ## 🧩 Licença
-MIT License © 2025 [Pierre Santos](https://github.com/pmagaiwer/)
+License © 2025 [Pierre Santos](https://github.com/pmagaiwer/)
+
 📍 Projeto pessoal para fins de estudo e demonstração de práticas SRE em Data Lake/Big Data.
