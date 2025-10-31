@@ -249,7 +249,7 @@ Job “etl_customer_data” failed @ 2025-10-31T08:45
 
 ---
 
-## 🚀 Frase para Entrevista
+## 🚀 Nota Pessoal
 
 > “Eu implementaria observabilidade completa no Databricks com Prometheus e Grafana, monitorando SLIs e SLOs como taxa de sucesso e latência P95 dos jobs.  
 > As métricas seriam expostas via exporter customizado, correlacionadas com custo e uso de clusters, para detectar gargalos antes de afetar o negócio.”
