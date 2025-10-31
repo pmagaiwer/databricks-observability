@@ -1,0 +1,11 @@
+service: "databricks-etl-pipeline"
+indicators:
+  - name: "job_success_rate"
+    query: "(sum(increase(databricks_job_succeeded_total[30d])) / sum(increase(databricks_job_started_total[30d]))) * 100"
+    target: 99.5
+  - name: "job_duration_p95"
+    query: "histogram_quantile(0.95, sum(rate(databricks_job_duration_seconds_bucket[5m])) by (le))"
+    target: 900
+  - name: "cluster_uptime"
+    query: "(avg_over_time(databricks_cluster_uptime_seconds[1d]) / 86400) * 100"
+    target: 99.0

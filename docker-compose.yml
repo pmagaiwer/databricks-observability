@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  databricks-exporter:
+    image: prom/databricks-exporter:latest
+    container_name: databricks-exporter
+    restart: always
+    environment:
+      DATABRICKS_HOST: "https://<seu-workspace>.cloud.databricks.com"
+      DATABRICKS_TOKEN: "<seu_token_de_api>"
+      EXPORTER_PORT: 9100
+    ports:
+      - "9100:9100"
+    command: ["--log.level=info"]
+    networks:
+      - observability
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - databricks-exporter
+    networks:
+      - observability
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+    networks:
+      - observability
+
+networks:
+  observability:
+    driver: bridge

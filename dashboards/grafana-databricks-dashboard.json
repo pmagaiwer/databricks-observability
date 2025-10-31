@@ -1,0 +1,11 @@
+{
+  "dashboard": {
+    "title": "Databricks Reliability Dashboard",
+    "panels": [
+      {"title": "Job Success Rate (7d)", "type": "graph", "targets": [{"expr": "(sum(increase(databricks_job_succeeded_total[7d])) / sum(increase(databricks_job_started_total[7d]))) * 100"}]},
+      {"title": "Job Duration (P95)", "type": "graph", "targets": [{"expr": "histogram_quantile(0.95, sum(rate(databricks_job_duration_seconds_bucket[5m])) by (le))"}]},
+      {"title": "Cluster Uptime", "type": "graph", "targets": [{"expr": "(avg_over_time(databricks_cluster_uptime_seconds[1d]) / 86400) * 100"}]},
+      {"title": "Cluster Cost (USD)", "type": "graph", "targets": [{"expr": "databricks_cluster_cost_usd"}]}
+    ]
+  }
+}

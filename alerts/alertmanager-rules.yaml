@@ -1,0 +1,10 @@
+groups:
+- name: databricks-observability
+  rules:
+  - alert: JobSuccessRateLow
+    expr: (sum(increase(databricks_job_succeeded_total[1h])) / sum(increase(databricks_job_started_total[1h]))) * 100 < 99
+    for: 10m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Taxa de sucesso de jobs < 99%"
